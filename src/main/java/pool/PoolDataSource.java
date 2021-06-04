@@ -19,9 +19,9 @@ public class PoolDataSource {
         try {
             return cpds.getConnection() ;
         } catch (SQLException e) {
-            throw new RuntimeException("Не удалось установить" + "соединение " + e.getMessage();
+            throw new RuntimeException("Не удалось установить" + "соединение " + e.getMessage());
         }
-        return null;
+
         // Если не готовы обр Exp, тогда только в сигнатуру метода.
     }
 }

@@ -1,8 +1,9 @@
 package jpa.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 // JPA Спецификация
@@ -12,16 +13,30 @@ import java.time.LocalDateTime;
 @Table (name = "tb_message") // позволяет задать имя таблицы в базе данных
 // через аннотации можно менять имя и указать информацию по индексам и связям с другими сущностями
 public class Message {
-    private int id;
-    @Column(name = "message_text", length = 1000, nullable = false) // По умолчанию не может быть пустым
+    @Getter
+    @Setter
+    @Id //если отмечаем как первичный ключ, добавляем Id
+    @GeneratedValue // стратегия автогенирации
+    private int id; // Первичный ключ
+
+
+    @Column(name = "message_text",
+            //length = 1000,
+            //nullable = false
+            unique = true,
+    columnDefinition = "VARCHAR") //Редактирование столбца, По умолчанию не может быть пустым
+
+    @Setter
     private String text;
+    @Column(nullable = false)
+    @Setter
     private LocalDateTime sent;
 
 
 
     //каждому полю в классе по умолчанию есть место в таблице
     // Транзиентные и сериалайз не воспринимает
-    // unuque Значения по данному столбцу буду уникальными
+    // Unuque Значения по данному столбцу буду уникальными
 
 }
 

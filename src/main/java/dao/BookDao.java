@@ -29,13 +29,13 @@ public class BookDao implements Dao<Book, Integer> {
     @Override
     public void add(Book entity) {
         String insertSql = "INSERT INTO tb_books(title, page_count) VALUES (?,?)";
-        try(PreparedStatement statement = PoolDataSource.getConnection().prepareStatement()) {
+        try(PreparedStatement statement = PoolDataSource.getConnection().prepareStatement(insertSql)) {
             statement.setString(1,entity.getTitle());
             statement.setString(2,entity.getTitle());
             statement.executeUpdate();
             try(ResultSet resultSet = statement.getGeneratedKeys()){
                 if(resultSet.next()){
-                    entity.setId(resultSet.getInt(1,));
+                    entity.setId(resultSet.getInt(1));
                 }
 
             }
@@ -76,7 +76,7 @@ public class BookDao implements Dao<Book, Integer> {
         String update = "UPDATE tb_books SET title = ?, page_count =?" +
                 "WHERE ID = ?";
         try (PreparedStatement statement = PoolDataSource.getConnection().prepareStatement(update)) {
-            statement.setString(1, entity);
+            statement.setString(1, entity.getTitle());
             statement.setInt(2,entity.getPageCount());
             statement.setInt(3,entity.getId());
             statement.executeUpdate();

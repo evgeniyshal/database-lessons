@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <!-- Настройки подключения бд-->
+    <persistence-unit name="java" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider> <!--Hibernate будет использовать настройки persistence -->
+        <class>jpa.entity
+        </class>
+
+        <properties>
+            <!--строка подключения к бд-->
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/lessons"/>
+            <!--логин пользователя бд-->
+            <property name="javax.persistence.jdbc.user" value="ifmo"/>
+            <!-- пароль пользователя бд-->
+            <property name="javax.persistence.jdbc.password" value="ifmo21"/>
+            <!--используемый драйвер-->
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/> <!-- Мы регистрировали на первом занятии -->
+
+            <!-- Используем ситаксис postgresql-->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
+
+            <!-- Запросы будут отоброжаться в консоль-->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+            <!-- Пул соединений-->
+            <property name="hibernate.c3p0.min_size" value="5"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.timeout" value="300"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+
+
+            <!-- validate(валидация на ошибки)  | update(обновляет структуру бд и таблиц) | create (сначала удалит, потом создаст) | create-drop(создает, при остановки удаляет) | none -->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/> <!-- Что делать с таблицами при запуске бд-->
+            <!--загрузка sql скрипта-->
+            <!-- <property name="javax.persistence.sql-load-script-source" value="META-INF/path_to_sql.sql" />-->
+        </properties>
+    </persistence-unit>
+</persistence>
